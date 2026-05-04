@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>即將進入教學...</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 25vh; background-color: #f4f4f4; padding: 20px; }
+    .notice { color: #555; font-size: 16px; margin-bottom: 20px; line-height: 1.5; }
+    button { 
+      padding: 15px 40px; 
+      font-size: 20px; 
+      background-color: #EE4D2D; 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    }
+    button:hover { background-color: #d73224; }
+  </style>
+</head>
+<body>
+  <h2>準備好觀看今天的教學了嗎？</h2>
+  
+  <!-- 更新後的誘導文案 -->
+  <p class="notice">
+    本教學完全免費！<br>
+    點擊下方按鈕進入時，將同步開啟贊助商頁面（不影響觀看）。<br>
+    感謝您的支持，讓我們能持續提供免費教學！
+  </p>
+  
+  <button onclick="goToVideo()">進入教學影片</button>
+
+  <script>
+    function goToVideo() {
+      // 在這裡換成你的蝦皮分潤連結
+      window.open('https://你的蝦皮分潤連結.com', '_blank');
+      // 跳轉到你的影片頁面
+      window.location.href = 'video.html';
+    }
+  </script>
+</body>
+</html>
