@@ -1,24 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <!-- 設定網頁編碼，讓中文能正常顯示 -->
   <meta charset="UTF-8">
-  <!-- 讓網頁在手機上也能完美排版 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的教學影片</title>
-  <!-- 簡單的排版美化 -->
+  <title>限時教學影片</title>
   <style>
     body { font-family: sans-serif; text-align: center; background-color: #f9f9f9; padding: 20px; }
     .video-container { margin-top: 30px; }
+    
+    /* 倒數計時器的樣式 */
+    #countdown { color: #d93025; font-weight: bold; font-size: 18px; margin-top: 10px; }
+    
+    /* 過期訊息的樣式（一開始先隱藏） */
+    #expired-message { display: none; color: #555; margin-top: 50px; font-size: 24px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>歡迎來到教學專區</h1>
-  <p>請觀看下方的教學影片</p>
   
-  <div class="video-container">
-    <!-- 請把下面這行 iframe 換成你剛剛在 YouTube 複製的嵌入碼 -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/你的影片ID" frameborder="0" allowfullscreen></iframe>
+  <!-- 這是正常觀看時會顯示的區塊 -->
+  <div id="content-area">
+    <h1>限時教學專區</h1>
+    <p id="countdown">計算中...</p>
+    
+    <div class="video-container">
+      <!-- 請把下面這行換成你從 Google 雲端硬碟複製來的 iframe 程式碼 -->
+      <iframe src="https://drive.google.com/file/d/你的影片ID/preview" width="640" height="480" allow="autoplay"></iframe>
+    </div>
   </div>
+
+  <!-- 這是過期後會顯示的區塊 -->
+  <div id="expired-message">
+    <p>⏳ 抱歉，這部影片的 24 小時限定觀看時間已結束！</p>
+    <p style="font-size: 16px; font-weight: normal;">請期待下一次的教學釋出。</p>
+  </div>
+
+  <script>
+    // ⚠️ 在這裡設定影片的「到期時間」！格式必須是：西元年-月-日T時:分:秒
+    // 例如這支影片在 2026年5月5日 晚上8點 (20:00:00) 到期
+    const expireDate = new Date("2026-05-05T20:00:00").getTime();
+
+    // 每秒檢查一次時間
+    const timer = setInterval(function() {
+      const now = new Date().getTime(); // 取得現在的時間
+      const distance = expireDate - now; // 計算距離到期還有多久
+
+      // 如果時間還沒到，計算並顯示剩下幾小時幾分幾秒
+      if (distance > 0) {
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById("countdown").innerHTML = "距離影片下架剩餘：" + hours + "小時 " + minutes + "分 " + seconds + "秒";
+      } 
+      // 如果時間到了（distance 小於 0）
+      else {
+        clearInterval(timer); // 停止計時
+        document.getElementById("content-area").style.display = "none"; // 隱藏影片與標題區塊
+        document.getElementById("expired-message").style.display = "block"; // 顯示過期訊息
+      }
+    }, 1000); // 1000 代表 1000毫秒（1秒）執行一次
+  </script>
 </body>
 </html>
