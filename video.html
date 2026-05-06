@@ -18,39 +18,39 @@ iframe { max-width: 100%; border: none; }
 <body>
 
 <div id="content-area">
-<h1>限時教學專區</h1>
-<p id="countdown">計算中...</p>
+    <h1>限時教學專區</h1>
+    <p id="countdown">計算中...</p>
 
-<div class="video-container">
-<!-- 這裡已經幫你修正好 iframe 的語法了 -->
-<<iframe src="https://drive.google.com/file/d/1Z-53oRw5Ug2rp7qHFkCljg0j437tC5KT/preview" width="640" height="480"></iframe>></iframe>
-</div>
+    <div class="video-container">
+        <iframe src="https://drive.google.com/file/d/1Z-53oRw5Ug2rp7qHFkCljg0j437tC5KT/preview" width="640" height="480" allow="autoplay"></iframe>
+    </div>
 </div>
 
 <div id="expired-message">
-<p>⏳ 抱歉，這部影片的 24 小時限定觀看時間已結束！</p>
-<p style="font-size: 16px; font-weight: normal;">請期待下一次的教學釋出。</p>
+    <p>⏳ 抱歉，這部影片的 24 小時限定觀看時間已結束！</p>
+    <p style="font-size: 16px; font-weight: normal;">請期待下一次的教學釋出。</p>
 </div>
 
 <script>
-const expireDate = new Date("2026-05-7˙T22:54:00").getTime();
+// 修正後的日期格式，移除雜質符號並確保格式正確 (YYYY-MM-DDTHH:mm:ss)
+const expireDate = new Date("2026-05-07T22:54:00").getTime();
 
 const timer = setInterval(function() {
-const now = new Date().getTime();
-const distance = expireDate - now;
+    const now = new Date().getTime();
+    const distance = expireDate - now;
 
-if (distance > 0) {
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (distance > 0) {
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-document.getElementById("countdown").innerHTML = "距離影片下架剩餘：" + hours + "小時 " + minutes + "分 " + seconds + "秒";
-}
-else {
-clearInterval(timer);
-document.getElementById("content-area").style.display = "none";
-document.getElementById("expired-message").style.display = "block";
-}
+        document.getElementById("countdown").innerHTML = "距離影片下架剩餘：" + hours + "小時 " + minutes + "分 " + seconds + "秒";
+    }
+    else {
+        clearInterval(timer);
+        document.getElementById("content-area").style.display = "none";
+        document.getElementById("expired-message").style.display = "block";
+    }
 }, 1000);
 </script>
 </body>
